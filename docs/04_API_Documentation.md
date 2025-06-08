@@ -1,25 +1,27 @@
-# BlindZone API Documentation
+# BlindZone API Documentation 🚀
+
+A production-ready specification of the REST and WebSocket APIs for **BlindZone** — the anonymous, location-based dating app.
 
 ---
 
-## Overview
+## 🔐 Authentication Flow
 
-This document outlines the REST and WebSocket API endpoints for **BlindZone** — an anonymous, location-based dating app. It covers authentication, user discovery, messaging, and expected request/response formats.
-
----
-
-## Authentication Flow
-
-1. User signs up with email and password.
-2. Server returns a JWT token on successful login/signup.
-3. Include `Authorization: Bearer <token>` header for protected routes.
-4. Tokens must be validated on every request.
+1. Users sign up or log in with email and password.
+2. Backend returns a JWT token on success.
+3. Token is passed in `Authorization: Bearer <token>` for all secured routes.
+4. Token is validated on each request. Refresh token system is recommended.
 
 ---
 
-## API Endpoints
+## 📌 API Versioning
 
-### 1. `POST /signup`
+All routes are versioned as `/api/v1/` to support long-term compatibility.
+
+---
+
+## 📬 Endpoints
+
+### 1. `POST /api/v1/signup`
 
 Register a new user.
 
@@ -32,7 +34,7 @@ Register a new user.
 }
 ```
 
-**Success Response:**
+**Success:**
 
 ```json
 {
@@ -41,7 +43,7 @@ Register a new user.
 }
 ```
 
-**Error Response:**
+**Failure:**
 
 ```json
 {
@@ -51,9 +53,9 @@ Register a new user.
 
 ---
 
-### 2. `POST /login`
+### 2. `POST /api/v1/login`
 
-Authenticate user and return JWT token.
+Authenticate a user and return token.
 
 **Request Body:**
 
@@ -64,7 +66,7 @@ Authenticate user and return JWT token.
 }
 ```
 
-**Success Response:**
+**Success:**
 
 ```json
 {
@@ -73,7 +75,7 @@ Authenticate user and return JWT token.
 }
 ```
 
-**Error Response:**
+**Failure:**
 
 ```json
 {
@@ -83,9 +85,9 @@ Authenticate user and return JWT token.
 
 ---
 
-### 3. `GET /nearby-users`
+### 3. `GET /api/v1/nearby-users`
 
-Fetch users near the current location.
+Fetch users based on location.
 
 **Headers:**
 
@@ -93,15 +95,15 @@ Fetch users near the current location.
 Authorization: Bearer <jwt_token>
 ```
 
-**Query Parameters:**
+**Query Params:**
 
-| Parameter | Type    | Description                 | Required           |
-| --------- | ------- | --------------------------- | ------------------ |
-| latitude  | float   | User's current latitude     | Yes                |
-| longitude | float   | User's current longitude    | Yes                |
-| radius    | integer | Search radius in kilometers | No (default: 5 km) |
+| Param     | Type  | Description                 | Required       |
+| --------- | ----- | --------------------------- | -------------- |
+| latitude  | float | Current latitude            | ✅             |
+| longitude | float | Current longitude           | ✅             |
+| radius    | int   | Search radius in kilometers | ❌ (default 5) |
 
-**Success Response:**
+**Success:**
 
 ```json
 {
@@ -118,9 +120,9 @@ Authorization: Bearer <jwt_token>
 
 ---
 
-### 4. `POST /send-message`
+### 4. `POST /api/v1/send-message`
 
-Send a message to a matched user (WebSocket fallback supported).
+Send a message to a user you’ve matched with.
 
 **Headers:**
 
@@ -133,11 +135,11 @@ Authorization: Bearer <jwt_token>
 ```json
 {
   "toUserId": "user456",
-  "message": "Hey, wanna chat?"
+  "message": "Hey there 👋"
 }
 ```
 
-**Success Response:**
+**Success:**
 
 ```json
 {
@@ -145,7 +147,7 @@ Authorization: Bearer <jwt_token>
 }
 ```
 
-**Error Response:**
+**Failure:**
 
 ```json
 {
@@ -155,25 +157,57 @@ Authorization: Bearer <jwt_token>
 
 ---
 
-## Notes
+## 📡 WebSocket (Upcoming)
 
-- JWT token required for all endpoints except `/signup` and `/login`.
-- WebSocket support is planned for real-time chat.
-- Rate limiting applies for API abuse prevention.
-- Return proper HTTP status codes: `401 Unauthorized`, `400 Bad Request`, `500 Server Error`, etc.
+**Connection URL:** `wss://blindzone.app/ws`
 
----
+**Events:**
 
-## Recommended Tools
-
-- [Postman](https://www.postman.com/) for manual API testing.
-- [Swagger](https://swagger.io/) for interactive API documentation.
-- Markdown files (`docs/api.md`) for simple readable documentation.
+| Event            | Payload Example                          |
+| ---------------- | ---------------------------------------- |
+| `joinRoom`       | `{ "room": "123" }`                      |
+| `sendMessage`    | `{ "to": "userId", "message": "Hello" }` |
+| `receiveMessage` | `{ "from": "userId", "message": "Hi" }`  |
 
 ---
 
-> Keep your tokens secure and refresh them regularly to maintain security.
+## 🧪 HTTP Status Codes
+
+| Code | Meaning        |
+| ---- | -------------- |
+| 200  | OK             |
+| 201  | Created        |
+| 400  | Bad Request    |
+| 401  | Unauthorized   |
+| 403  | Forbidden      |
+| 404  | Not Found      |
+| 500  | Internal Error |
 
 ---
 
-_Happy coding! 🚀_
+## 🛡️ Security Considerations
+
+- Passwords hashed with bcrypt.
+- JWT with expiry and refresh support.
+- HTTPS enforced.
+- Rate limiting enabled.
+- XSS/SQL Injection sanitized.
+
+---
+
+## 🛠 Recommended Tools
+
+- [Postman](https://www.postman.com/)
+- [Swagger UI](https://swagger.io/)
+- Markdown: `docs/api.md`
+
+---
+
+## 📌 Changelog
+
+- v1.0.0 — Basic signup/login/match/chat APIs
+- v1.1.0 — WebSocket messaging coming soon
+
+---
+
+> BlindZone is built for privacy, minimalism, and meaningful anonymous interactions.
