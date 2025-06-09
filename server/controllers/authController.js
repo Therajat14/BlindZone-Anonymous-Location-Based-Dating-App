@@ -23,7 +23,7 @@ const signUp = async (req, res) => {
 
     // Send success response
     res.status(201).json({
-      msg: "User registered successfully",
+      message: "User registered successfully",
       token: jwtToken,
     });
   } catch (error) {
@@ -62,7 +62,7 @@ const logIn = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ msg: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
