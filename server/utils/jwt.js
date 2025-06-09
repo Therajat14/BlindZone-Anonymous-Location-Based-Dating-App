@@ -1,25 +1,29 @@
-const { response } = require("express");
 const jwt = require("jsonwebtoken");
 
-// Make sure the secret is present
-if (!process.env.JWT_SECRET_KEY) {
-  throw new Error("JWT_SECRET_KEY is missing in environment variables");
-}
+// Get the secret key from environment variables
+const getSecret = () => {
+  const key = process.env.JWT_SECRET_KEY;
+  if (!key)
+    throw new Error("JWT_SECRET_KEY is missing in environment variables");
+  return key;
+};
 
-// Sign a JWT with a 1 hour expiration
-const jwtSign = (payload) =>
-  jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+// Create a JWT token with 1 hour expiry
+const jwtSign = (payload) => {
+  return jwt.sign(payload, getSecret(), { expiresIn: "1h" });
+};
 
-// Safe version — returns null instead of crashing
+// Verify the token and return the decoded data
 const jwtVerify = (token) => {
   try {
-    return jwt.verify(token, process.env.JWT_SECRET_KEY);
+    return jwt.verify(token, getSecret());
   } catch (err) {
-    console.log(err);
+    console.error("JWT verification failed:", err.message);
+    return null;
   }
 };
 
-// Decode JWT without verifying signature (use with caution)
+// Decode the token without verifying
 const jwtDecode = (token) => jwt.decode(token);
 
 module.exports = {

@@ -10,7 +10,7 @@ const signUp = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(403).json({
-        msg: "Email already exists",
+        error: "Email already exists",
       });
     }
 
@@ -23,8 +23,8 @@ const signUp = async (req, res) => {
     const jwtToken = jwtSign({ id: savedUser._id, email: savedUser.email });
 
     res.status(201).json({
-      msg: "User created successfully",
-      jwtToken,
+      msg: "User registered successfully",
+      token: jwtToken,
     });
   } catch (error) {
     console.error(error.message);
@@ -35,7 +35,10 @@ const signUp = async (req, res) => {
 };
 
 const logIn = (req, res) => {
-  res.send("hi there from login HWHEHE");
+  try {
+    const { email, password } = req.body;
+    emailExist;
+  } catch (error) {}
 };
 
 module.exports = { logIn, signUp };
