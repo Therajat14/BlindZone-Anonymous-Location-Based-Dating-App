@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001;
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/api/v1", authRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}`)
