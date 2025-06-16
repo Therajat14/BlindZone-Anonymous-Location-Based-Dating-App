@@ -65,7 +65,7 @@ const HomePage = () => {
             Get Started
           </Link>
           <Link
-            to="/auth"
+            to="/login"
             className="block w-full rounded-2xl border border-gray-600 px-6 py-4 text-center font-medium text-gray-300 transition-all duration-200 hover:border-gray-500 hover:bg-white/5"
           >
             I Already Have an Account

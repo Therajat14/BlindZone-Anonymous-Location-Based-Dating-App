@@ -25,7 +25,7 @@ const Signup = () => {
   // Use a combined loading state: local submission loading or global auth loading
   const isLoading = authLoading;
   // Use a combined error state: local validation error or global auth error
-  const displayError = localError || authError;
+  let displayError = authError;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -162,6 +162,20 @@ const Signup = () => {
           >
             {isLoading ? "Creating Account..." : "Create Account"}
           </button>
+
+          <p className="text-center text-xs leading-relaxed text-gray-400">
+            By signing up, you agree to our Terms of Service and Privacy Policy
+          </p>
+
+          <div className="text-center">
+            <span className="text-gray-400">Already have an account? </span>
+            <Link
+              to="/login"
+              className="hover:text-primary-400 font-semibold text-primary-500 transition-colors"
+            >
+              Sign In
+            </Link>
+          </div>
         </form>
       </div>
     </div>

@@ -1,20 +1,20 @@
 // client/src/context/AuthContext.jsx
-import React, { createContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { AuthContext } from "./CreateContext";
 import {
   login as apiLogin,
   signup as apiSignup,
   logout as apiLogout,
   getProfile as apiGetProfile,
 } from "../api/auth";
-
-export const AuthContext = createContext(null);
+import { useNavigate } from "react-router";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
   // Function to check and load user on app start
   const loadUserFromToken = async () => {
     const token = localStorage.getItem("jwt_token");
@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("jwt_token"); // Clear invalid token
         localStorage.removeItem("user");
         setUser(null);
+        navigate("/");
       }
     }
     setLoading(false);
@@ -48,6 +49,7 @@ export const AuthProvider = ({ children }) => {
       setUser(data.user); // Assuming backend sends user object
       localStorage.setItem("user", JSON.stringify(data.user)); // Store user details (optional)
       setLoading(false);
+
       return data;
     } catch (err) {
       setError(err.message || "Login failed");
@@ -80,6 +82,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("jwt_token"); // Clear token
       localStorage.removeItem("user"); // Clear user data
       setUser(null);
+      navigate("/login");
       setLoading(false);
     } catch (err) {
       setError(err.message || "Logout failed");

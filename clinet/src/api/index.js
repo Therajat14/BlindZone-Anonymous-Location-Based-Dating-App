@@ -1,10 +1,11 @@
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "/api",
   // withCredentials: true, // Important if using HttpOnly cookies
 });
-console.log(import.meta.env.VITE_API_URL);
+
 // Request Interceptor: Attach JWT token to every outgoing request
 api.interceptors.request.use(
   (config) => {
@@ -56,7 +57,7 @@ api.interceptors.response.use(
       // Using window.location.href or navigate from react-router-dom directly
       // This part might need to be handled by the AuthContext to use `useNavigate`
       // For now, this is a direct redirect:
-      window.location = "/auth";
+      navigate("/");
     }
     return Promise.reject(error);
   },

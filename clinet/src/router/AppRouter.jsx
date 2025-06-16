@@ -6,12 +6,14 @@ import ChatRoomPage from "../pages/ChatRoomPage";
 import { MatchPage } from "../pages/MatchPage";
 import { ProfilePage } from "../pages/ProfilePage";
 import AuthPage from "../pages/AuthPage";
-import { NotFoundPage } from "../pages/NotFoundPage";
+import NotFoundPage from "../pages/NotFoundPage";
 import { AuthProvider } from "../context/AuthContext";
 // import { ChatProvider } from "../context/ChatContext";
 import useAuth from "../hooks/useAuth";
 import { signup } from "../api/auth";
 import SignupForm from "../pages/auth/SignupForm";
+import Test1 from "../pages/test1";
+import LoginForm from "../components/auth/LoginForm";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading, isAuthenticated } = useAuth(); // Use isAuthenticated
@@ -36,9 +38,11 @@ const AppRouter = () => {
         {/* ChatProvider depends on AuthProvider's user, so it should be inside */}
 
         <Routes>
+          <Route path="/test1" element={<Test1 />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="signup" element={<SignupForm />}></Route>
+          <Route path="login" element={<LoginForm />}></Route>
           <Route
             path="/profile"
             element={
