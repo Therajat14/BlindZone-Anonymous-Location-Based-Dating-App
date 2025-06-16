@@ -10,7 +10,7 @@ const signUp = async (req, res) => {
     // Check if email already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(403).json({ error: "Email already exists" });
+      return res.status(403).json({ message: "Email already exists" });
     }
 
     // Hash the password and create new user
@@ -23,12 +23,18 @@ const signUp = async (req, res) => {
 
     // Send success response
     res.status(201).json({
+      user: {
+        id: "12345",
+        email: "test@example.com",
+        displayName: "Test User",
+        isAnonymous: true,
+      },
       message: "User registered successfully",
       token: jwtToken,
     });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ msg: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -40,13 +46,13 @@ const logIn = async (req, res) => {
     // Check if user exists
     const isEmailExist = await User.findOne({ email });
     if (!isEmailExist) {
-      return res.status(404).json({ error: "Invalid credentials" });
+      return res.status(404).json({ message: "Invalid credentials" });
     }
 
     // Verify password
     const isMatch = await verifyHash(password, isEmailExist.password);
     if (!isMatch) {
-      return res.status(404).json({ error: "Invalid credentials" });
+      return res.status(404).json({ message: "Invalid credentials" });
     }
 
     // Generate JWT token
