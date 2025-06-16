@@ -1,37 +1,46 @@
-// client/src/components/layout/AppLayout.jsx
 import React from "react";
-import PropTypes from "prop-types"; // Import PropTypes for prop validation
-import NavBar from "./NavBar"; // Import the NavBar component
+import { Outlet, useLocation, Link } from "react-router";
+import { Heart, MessageCircle, User, Compass } from "lucide-react";
 
-/**
- * AppLayout component provides a consistent layout for most pages in the application.
- * It typically includes a navigation bar and wraps the main content of the page.
- *
- * @param {object} props - The component's props.
- * @param {React.ReactNode} props.children - The content to be rendered within the layout.
- */
-const AppLayout = ({ children }) => {
+const Layout = () => {
+  const location = useLocation();
+
+  const tabs = [
+    { path: "/discover", icon: Compass, label: "Discover" },
+    { path: "/matches", icon: Heart, label: "Matches" },
+    { path: "/chats", icon: MessageCircle, label: "Chats" },
+    { path: "/profile", icon: User, label: "Profile" },
+  ];
+
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Navigation Bar */}
-      <NavBar />
+      <main className="flex-1 pb-20">
+        <Outlet />
+      </main>
 
-      {/* Main content area, takes remaining vertical space */}
-      <main className="flex-1 p-4">{children}</main>
-
-      {/* Optional: You can add a Footer component here if your app needs one */}
-      {/* <footer>
-        <div className="bg-gray-800 text-white p-4 text-center">
-          &copy; {new Date().getFullYear()} DatingApp. All rights reserved.
+      <nav className="fixed bottom-0 left-0 right-0 border-t border-white/10 bg-gray-900/95 px-6 py-2 backdrop-blur-lg">
+        <div className="mx-auto flex max-w-md items-center justify-around">
+          {tabs.map(({ path, icon: Icon, label }) => {
+            const isActive = location.pathname === path;
+            return (
+              <Link
+                key={path}
+                to={path}
+                className={`flex flex-col items-center rounded-lg px-3 py-2 transition-all duration-200 ${
+                  isActive
+                    ? "text-primary-500 bg-primary-500/10"
+                    : "text-gray-400 hover:bg-white/5 hover:text-white"
+                }`}
+              >
+                <Icon size={24} />
+                <span className="mt-1 text-xs font-medium">{label}</span>
+              </Link>
+            );
+          })}
         </div>
-      </footer> */}
+      </nav>
     </div>
   );
 };
 
-// PropTypes for validation
-AppLayout.propTypes = {
-  children: PropTypes.node.isRequired, // Ensure children are provided
-};
-
-export default AppLayout;
+export default Layout;
