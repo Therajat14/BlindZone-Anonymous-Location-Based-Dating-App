@@ -2,8 +2,9 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "/api",
-  withCredentials: true, // Important if using HttpOnly cookies
+  // withCredentials: true, // Important if using HttpOnly cookies
 });
+console.log(import.meta.env.VITE_API_URL);
 // Request Interceptor: Attach JWT token to every outgoing request
 api.interceptors.request.use(
   (config) => {

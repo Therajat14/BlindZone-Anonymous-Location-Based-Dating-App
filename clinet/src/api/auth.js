@@ -21,6 +21,7 @@ export const signup = async (userData) => {
     if (response.data.token) {
       localStorage.setItem("jwt_token", response.data.token); // Store the JWT
     }
+    console.log(response);
     return response.data;
   } catch (error) {
     throw error.response.data || error.message;

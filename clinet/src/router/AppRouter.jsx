@@ -10,6 +10,8 @@ import { NotFoundPage } from "../pages/NotFoundPage";
 import { AuthProvider } from "../context/AuthContext";
 // import { ChatProvider } from "../context/ChatContext";
 import useAuth from "../hooks/useAuth";
+import { signup } from "../api/auth";
+import SignupForm from "../pages/auth/SignupForm";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading, isAuthenticated } = useAuth(); // Use isAuthenticated
@@ -36,6 +38,7 @@ const AppRouter = () => {
         <Routes>
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="signup" element={<SignupForm />}></Route>
           <Route
             path="/profile"
             element={
