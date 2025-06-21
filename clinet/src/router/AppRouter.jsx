@@ -13,7 +13,7 @@ import useAuth from "../hooks/useAuth";
 import { signup } from "../api/auth";
 import SignupForm from "../pages/auth/SignupForm";
 import Test1 from "../pages/test1";
-import LoginForm from "../components/auth/LoginForm";
+import LoginForm from "../pages/auth/LoginForm";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading, isAuthenticated } = useAuth(); // Use isAuthenticated
