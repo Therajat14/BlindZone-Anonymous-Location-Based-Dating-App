@@ -46,6 +46,7 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       const data = await apiLogin(credentials); // This handles token storage
+      console.log(data);
       setUser(data.user); // Assuming backend sends user object
       localStorage.setItem("user", JSON.stringify(data.user)); // Store user details (optional)
       setLoading(false);

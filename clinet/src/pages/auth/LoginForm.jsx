@@ -36,7 +36,7 @@ const LoginForm = () => {
       <div className="mx-auto max-w-md">
         <div className="mb-8 pt-12">
           <Link
-            to="/welcome"
+            to="/"
             className="mb-8 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-gray-300 transition-colors hover:bg-white/20"
           >
             <ArrowLeft size={20} />
