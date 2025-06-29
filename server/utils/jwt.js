@@ -10,7 +10,7 @@ const getSecret = () => {
 
 // Create a JWT token with 1 hour expiry
 const jwtSign = (payload) => {
-  return jwt.sign(payload, getSecret(), { expiresIn: "1h" });
+  return jwt.sign(payload, getSecret(), { expiresIn: 1000 * 60 * 5 });
 };
 
 // Verify the token and return the decoded data

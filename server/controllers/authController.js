@@ -24,10 +24,8 @@ const signUp = async (req, res) => {
     // Send success response
     res.status(201).json({
       user: {
-        id: "12345",
-        email: "test@example.com",
-        displayName: "Test User",
-        isAnonymous: true,
+        id: savedUser._id,
+        email: savedUser.email,
       },
       message: "User registered successfully",
       token: jwtToken,
@@ -55,15 +53,17 @@ const logIn = async (req, res) => {
       return res.status(404).json({ message: "Invalid credentials" });
     }
 
-    // Generate JWT token
-    const jwtToken = jwtSign({
+    const user = {
       id: isEmailExist._id,
       email: isEmailExist.email,
-    });
+    };
+    // Generate JWT token
+    const jwtToken = jwtSign(user);
 
     // Send success response
     res.status(200).json({
       message: "Login successful",
+      user,
       token: jwtToken,
     });
   } catch (error) {

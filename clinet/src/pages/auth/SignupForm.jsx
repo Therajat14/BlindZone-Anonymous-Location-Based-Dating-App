@@ -14,6 +14,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   // Component local states for form fields
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
