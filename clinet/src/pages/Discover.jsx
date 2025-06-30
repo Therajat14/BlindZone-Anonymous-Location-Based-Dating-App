@@ -37,6 +37,7 @@ export const Discover = () => {
         "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=400",
     },
   ];
+  const user = users[1];
 
   return (
     <div>
@@ -50,10 +51,51 @@ export const Discover = () => {
             <Settings className="h-5 w-5 text-white" />
           </button>
         </div>
+
+        <div></div>
       </div>
     </div>
   );
 };
+//
+//       <div className="px-6 pb-32">
+//         <div className="card-hover relative h-[600px] w-full overflow-hidden rounded-3xl bg-gray-800">
+//           <img
+//             src={user.image}
+//             alt={user.displayName}
+//             className="h-full w-full object-cover"
+//           />
+//           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+//           <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+//             <div className="mb-2 flex items-center gap-2">
+//               <h2 className="text-2xl font-bold">{user.displayName}</h2>
+//               <span className="text-primary-400 rounded-lg bg-primary-500/20 px-2 py-1 text-sm">
+//                 {user.age}
+//               </span>
+//             </div>
+//             <div className="mb-3 flex items-center gap-1">
+//               <MapPin className="h-4 w-4 text-secondary-500" />
+//               <span className="text-sm text-secondary-500">
+//                 {user.distance}km away
+//               </span>
+//               {user.isOnline && (
+//                 <div className="ml-2 h-2 w-2 rounded-full bg-green-500" />
+//               )}
+//             </div>
+//             <p className="mb-4 leading-relaxed text-gray-200">{user.bio}</p>
+//             <div className="flex flex-wrap gap-2">
+//               {user.interests.map((interest, idx) => (
+//                 <span
+//                   key={idx}
+//                   className="rounded-full bg-white/10 px-3 py-1 text-sm text-white backdrop-blur-sm"
+//                 >
+//                   {interest}
+//                 </span>
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       </div>
 
 //  <div className="flex items-center justify-between p-6 pt-12">
 //         <div>

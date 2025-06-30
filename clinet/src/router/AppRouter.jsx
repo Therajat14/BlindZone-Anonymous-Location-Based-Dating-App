@@ -8,7 +8,7 @@ import { ProfilePage } from "../pages/ProfilePage";
 import AuthPage from "../pages/AuthPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import { AuthProvider } from "../context/AuthContext";
-import { Discover } from "../pages/discover";
+import { Discover } from "../pages/Discover";
 // import { ChatProvider } from "../context/ChatContext";
 import useAuth from "../hooks/useAuth";
 import { signup } from "../api/auth";
