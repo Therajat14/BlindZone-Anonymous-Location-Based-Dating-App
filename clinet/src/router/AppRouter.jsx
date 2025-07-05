@@ -15,6 +15,7 @@ import { signup } from "../api/auth";
 import SignupForm from "../pages/auth/SignupForm";
 import Test1 from "../pages/test1";
 import LoginForm from "../pages/auth/LoginForm";
+import CompleteProfileForm from "../pages/auth/CompleteProfileForm";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading, isAuthenticated } = useAuth(); // Use isAuthenticated
@@ -44,6 +45,7 @@ const AppRouter = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="signup" element={<SignupForm />}></Route>
           <Route path="login" element={<LoginForm />}></Route>
+          <Route path="/completeProfile" element={<CompleteProfileForm />} />
           <Route
             path="/profile"
             element={

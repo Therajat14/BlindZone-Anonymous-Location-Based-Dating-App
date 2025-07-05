@@ -1,4 +1,5 @@
 // client/src/api/auth.js
+import { useNavigate } from "react-router";
 import api from "./index";
 
 export const login = async (credentials) => {
@@ -41,7 +42,11 @@ export const logout = async () => {
 // Example: Fetch user profile (requires auth token)
 export const getProfile = async () => {
   try {
-    const response = await api.get("/auth/profile"); // Assuming a protected profile endpoint
+    const response = await api.get("/auth/profile");
+    if (response.status === 403 && response.data.redirectTo) {
+      navigate(response.data.redirectTo); // React Router or equivalent
+    }
+    // Assuming a protected profile endpoint
     return response.data;
   } catch (error) {
     throw error.response.data || error.message;

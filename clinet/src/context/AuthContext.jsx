@@ -23,8 +23,13 @@ export const AuthProvider = ({ children }) => {
       // or make an API call to /profile to verify token and get fresh user data.
       // Making an API call is more robust for checking token validity.
       try {
-        const profileData = await apiGetProfile(); // This call will use the token
+        const profileData = await apiGetProfile();
+        // This call will use the token
         setUser(profileData.user); // Assuming profileData has a 'user' object
+        if (!profileData.user.profileCompleted) {
+          navigate("/completeProfile");
+        }
+
         localStorage.setItem("user", JSON.stringify(profileData.user));
       } catch (err) {
         console.error("Failed to load user profile with token:", err);

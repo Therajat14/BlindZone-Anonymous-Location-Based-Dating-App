@@ -14,6 +14,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  profileCompleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // Create the User model from the schema
